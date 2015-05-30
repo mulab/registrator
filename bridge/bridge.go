@@ -208,6 +208,9 @@ func (b *Bridge) newService(port ServicePort, isgroup bool) *Service {
 	service.Origin = port
 	service.ID = hostname + ":" + container.Name[1:] + ":" + port.ExposedPort
 	service.Name = mapDefault(metadata, "name", defaultName)
+	if mapDefault(metadata, "use_hostname", "") != "" {
+		service.Name = port.ContainerHostname
+	}
 	var p int
 	if b.config.Internal == true {
 		service.IP = port.ExposedIP
