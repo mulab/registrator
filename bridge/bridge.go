@@ -220,6 +220,9 @@ func (b *Bridge) newService(port ServicePort, isgroup bool) *Service {
 		service.IP = port.HostIP
 		p, _ = strconv.Atoi(port.HostPort)
 	}
+    if mapDefault(metadata, "user_hostip", "") != "" {
+        service.IP = port.HostIP
+    }
 	service.Port = p
 
 	if port.PortType == "udp" {
